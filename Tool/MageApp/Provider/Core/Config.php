@@ -91,10 +91,15 @@ class MageTool_Tool_MageApp_Provider_Core_Config extends MageTool_Tool_MageApp_P
             
         foreach($configs as $key => $config) {
             $config->setValue($value);
-            $config->save();
-            
+            if ($this->_registry->getRequest()->isPretend()) {
+                $result = "Dry run";
+            } else {
+                $result = "Saved";
+                $config->save();
+            }  
+
             $response->appendContent(
-                "{$config->getPath()} [{$config->getScope()}] = {$config->getValue()}",
+                "{$result} > {$config->getPath()} [{$config->getScope()}] = {$config->getValue()}",
                 array('color' => array('white'))
                 );
         }
@@ -132,10 +137,16 @@ class MageTool_Tool_MageApp_Provider_Core_Config extends MageTool_Tool_MageApp_P
         foreach($configs as $key => $config) {
             if(strstr($config->getvalue(), $match)) {
                 $config->setValue(str_replace($match, $value, $config->getvalue()));
-                $config->save();
+                
+                if ($this->_registry->getRequest()->isPretend()) {
+                    $result = "Dry run";
+                } else {
+                    $result = "Saved";
+                    $config->save();
+                }  
 
                 $response->appendContent(
-                    "{$config->getPath()} [{$config->getScope()}] = {$config->getValue()}",
+                    "{$result} > {$config->getPath()} [{$config->getScope()}] = {$config->getValue()}",
                     array('color' => array('white'))
                     );
             }
