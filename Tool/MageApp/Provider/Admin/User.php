@@ -33,6 +33,21 @@ class MageTool_Tool_MageApp_Provider_Admin_User extends MageTool_Tool_MageApp_Pr
      **/
     public function show()
     {
+        $this->_bootstrap();
+        
+        // get request/response object
+        $request = $this->_registry->getRequest();
+        $response = $this->_registry->getResponse();
+        
+        $userCollection = $configs = Mage::getModel('admin/user')->getCollection();
+        $userCollection->load();
+
+        foreach($userCollection as $key => $user) {
+            $response->appendContent(
+                "{$user->getUsername()} <{$user->getEmail()}>",
+                array('color' => array('white'))
+                );
+        }
     }
 
     /**
@@ -41,7 +56,7 @@ class MageTool_Tool_MageApp_Provider_Admin_User extends MageTool_Tool_MageApp_Pr
      * @return void
      * @author Alistair Stead
      **/
-    public function create()
+    public function create($username, $email, $password, $firstname = 'Admin', $lastname = 'User')
     {
         $this->_bootstrap();
         
@@ -50,57 +65,35 @@ class MageTool_Tool_MageApp_Provider_Admin_User extends MageTool_Tool_MageApp_Pr
         $response = $this->_registry->getResponse();
         
         $response->appendContent(
-            "Magento Admin User:\n",
+            "Creating Magento Admin User:",
             array('color' => array('yellow'))
             );
 
-        try {
-            //create new user
-            $user = Mage::getModel('admin/user')
-                ->setData(array(
-                    'username'  => USERNAME,
-                    'firstname' => 'John',
-                    'lastname'  => 'Doe',
-                    'email'     => EMAIL,
-                    'password'  => PASSWORD,
-                    'is_active' => 1
-                ))->save();
+        //create new user
+        $user = Mage::getModel('admin/user')
+            ->setData(array(
+                'username'  => $username,
+                'firstname' => $firstname,
+                'lastname'  => $lastname,
+                'email'     => $email,
+                'password'  => $password,
+                'is_active' => 1
+            ))->save();
 
-        } catch (Exception $e) {
-            echo $e->getMessage();
-            exit;
-        }
+        //create new role
+        $role = Mage::getModel("admin/roles")
+                ->setName('Development')
+                ->setRoleType('G')
+                ->save();
 
-        try {
-            //create new role
-            $role = Mage::getModel("admin/roles")
-                    ->setName('Development')
-                    ->setRoleType('G')
-                    ->save();
+        //give "all" privileges to role
+        Mage::getModel("admin/rules")
+                ->setRoleId($role->getId())
+                ->setResources(array("all"))
+                ->saveRel();
 
-            //give "all" privileges to role
-            Mage::getModel("admin/rules")
-                    ->setRoleId($role->getId())
-                    ->setResources(array("all"))
-                    ->saveRel();
-
-        } catch (Mage_Core_Exception $e) {
-            echo $e->getMessage();
-            exit;
-        } catch (Exception $e) {
-            echo 'Error while saving role.';
-            exit;
-        }
-
-        try {
-            //assign user to role
-            $user->setRoleIds(array($role->getId()))
-                ->setRoleUserId($user->getUserId())
-                ->saveRelations();
-
-        } catch (Exception $e) {
-            echo $e->getMessage();
-            exit;
-        }
+        $user->setRoleIds(array($role->getId()))
+            ->setRoleUserId($user->getUserId())
+            ->saveRelations();
     }
 }
