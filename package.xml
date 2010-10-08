@@ -4,10 +4,10 @@
     http://pear.php.net/dtd/package-2.0
     http://pear.php.net/dtd/package-2.0.xsd">
  <name>MageTool</name>
- <channel>pear.designdisclosure.com</channel>
+ <channel>pear.magetool.co.uk</channel>
  <summary>Additional ZF tools specifically for use during Magento development.</summary>
  <description>
-   Additional ZF tools specifically for use during Magento development.
+   Additional ZF tools specifically for use during Magento development. Adding commands that will be useful during development with Magento. Command include: Clear cache, enable / disable cache and create admin user.
  </description>
  <lead>
   <name>Alistair Stead</name>
