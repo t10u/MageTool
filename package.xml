@@ -31,7 +31,59 @@
    <dir name="/">
     <file name="LICENSE" role="doc" />
     <file name="README.markdown" role="doc" />
-    <file baseinstalldir="/" name="magetool" role="script" />
+    <dir name="Tool">
+        <dir name="MageApp">
+            <file baseinstalldir="/" name="Exception.php" role="php">
+                <tasks:replace from="@package_version@" to="version" type="package-info" />
+            </file>
+            <dir name="Provider">
+                <file baseinstalldir="/" name="Abstract.php" role="php">
+                    <tasks:replace from="@package_version@" to="version" type="package-info" />
+                </file>
+                <file baseinstalldir="/" name="App.php" role="php">
+                    <tasks:replace from="@package_version@" to="version" type="package-info" />
+                </file>
+                <file baseinstalldir="/" name="Exception.php" role="php">
+                    <tasks:replace from="@package_version@" to="version" type="package-info" />
+                </file>
+                <file baseinstalldir="/" name="Manifest.php" role="php">
+                    <tasks:replace from="@package_version@" to="version" type="package-info" />
+                </file>
+                <dir name="Admin">
+                    <file baseinstalldir="/" name="User.php" role="php">
+                        <tasks:replace from="@package_version@" to="version" type="package-info" />
+                    </file>
+                </dir>
+                <dir name="Core">
+                    <file baseinstalldir="/" name="Cache.php" role="php">
+                        <tasks:replace from="@package_version@" to="version" type="package-info" />
+                    </file>
+                    <file baseinstalldir="/" name="Config.php" role="php">
+                        <tasks:replace from="@package_version@" to="version" type="package-info" />
+                    </file>
+                    <file baseinstalldir="/" name="Resource.php" role="php">
+                        <tasks:replace from="@package_version@" to="version" type="package-info" />
+                    </file>
+                </dir>
+            </dir>
+        </dir>
+        <dir name="MageExtension">
+            <file baseinstalldir="/" name="Exception.php" role="php">
+                <tasks:replace from="@package_version@" to="version" type="package-info" />
+            </file>
+            <dir name="Provider">
+                <file baseinstalldir="/" name="Abstract.php" role="php">
+                    <tasks:replace from="@package_version@" to="version" type="package-info" />
+                </file>
+                <file baseinstalldir="/" name="Extension.php" role="php">
+                    <tasks:replace from="@package_version@" to="version" type="package-info" />
+                </file>
+                <file baseinstalldir="/" name="Manifest.php" role="php">
+                    <tasks:replace from="@package_version@" to="version" type="package-info" />
+                </file>
+            </dir>
+        </dir>
+    </dir>
    </dir>
  </contents>
  <dependencies>
