@@ -41,7 +41,7 @@ class MageTool_Tool_MageApp_Provider_Core_Resource extends MageTool_Tool_MageApp
      * @return void
      * @author Alistair Stead
      **/
-    public function clear()
+    public function delete($path)
     {
     }
 }
