@@ -14,6 +14,23 @@ require_once 'MageTool/Tool/MageApp/Provider/Abstract.php';
 class MageTool_Tool_MageApp_Provider_Core_Cache extends MageTool_Tool_MageApp_Provider_Abstract
     implements Zend_Tool_Framework_Provider_Pretendable
 {
+    
+    /**
+     * Cache types
+     *
+     * @var array
+     **/
+    protected $cacheTypes = array(
+            'config',
+            'layout',
+            'block_html',
+            'translate',
+            'collections',
+            'eav',
+            'config_api',
+            'full_page'
+        );
+    
     /**
      * Define the name of the provider
      *
@@ -42,7 +59,7 @@ class MageTool_Tool_MageApp_Provider_Core_Cache extends MageTool_Tool_MageApp_Pr
         $response = $this->_registry->getResponse();
         
         $response->appendContent(
-            'Cache Cleared',
+            'Magento Cache Cleared',
             array('color' => array('green'))
             );
     }
@@ -55,7 +72,28 @@ class MageTool_Tool_MageApp_Provider_Core_Cache extends MageTool_Tool_MageApp_Pr
      **/
     public function enable()
     {
-        // TODO enable all magento cache
+        $this->_bootstrap();
+        $allTypes = Mage::app()->useCache();
+
+        $updatedTypes = 0;
+        foreach ($this->cacheTypes as $code) {
+            if (empty($allTypes[$code])) {
+                $allTypes[$code] = 1;
+                $updatedTypes++;
+            }
+        }
+        if ($updatedTypes > 0) {
+            Mage::app()->saveUseCache($allTypes);
+        }
+        
+        // get request/response object
+        $request = $this->_registry->getRequest();
+        $response = $this->_registry->getResponse();
+        
+        $response->appendContent(
+            'Magento Cache Enabled',
+            array('color' => array('green'))
+            );
     }
     
     /**
@@ -66,6 +104,28 @@ class MageTool_Tool_MageApp_Provider_Core_Cache extends MageTool_Tool_MageApp_Pr
      **/
     public function disable()
     {
-        // TODO disable all magento cache
+        $this->_bootstrap();
+        $allTypes = Mage::app()->useCache();
+
+        $updatedTypes = 0;
+        foreach ($this->cacheTypes as $code) {
+            if (!empty($allTypes[$code])) {
+                $allTypes[$code] = 0;
+                $updatedTypes++;
+            }
+            $tags = Mage::app()->getCacheInstance()->cleanType($code);
+        }
+        if ($updatedTypes > 0) {
+            Mage::app()->saveUseCache($allTypes);
+        }
+        
+        // get request/response object
+        $request = $this->_registry->getRequest();
+        $response = $this->_registry->getResponse();
+        
+        $response->appendContent(
+            'Magento Cache Disabled',
+            array('color' => array('green'))
+            );
     }
 }
