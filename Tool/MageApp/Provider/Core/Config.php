@@ -30,9 +30,8 @@ class MageTool_Tool_MageApp_Provider_Core_Config extends MageTool_Tool_MageApp_P
      *
      * @return void
      * @author Alistair Stead
-     * @TODO add path and scope filters
      **/
-    public function show()
+    public function show($path = null, $scope = null)
     {
         $this->_bootstrap();
         
@@ -41,44 +40,105 @@ class MageTool_Tool_MageApp_Provider_Core_Config extends MageTool_Tool_MageApp_P
         $response = $this->_registry->getResponse();
         
         $response->appendContent(
-            "Magento Config Data:\n",
+            'Magento Config Data: $PATH [$SCOPE] = $VALUE',
             array('color' => array('yellow'))
             );
             
-        try {
-            $configs = Mage::getModel('core/config_data')
-                ->getCollection()
-                ->load();
+        $configCollection = $configs = Mage::getModel('core/config_data')->getCollection();
 
-            foreach($configs as $key => $config) {
-                $response->appendContent(
-                    "{$config->getvalue()}:\n",
-                    array('color' => array('white'))
-                    );
-            }
+        if(is_string($path)) {
+            $configCollection->addFieldToFilter('path', array("eq" => $path));
+        }
+        if(is_string($scope)) {
+            $configCollection->addFieldToFilter('scope', array("eq" => $scope));
+        }
+        $configCollection->load();
 
-        } catch (Exception $e) {
-            throw new MageTool_Tool_MageApp_Provider_Exception('Unable to retrieve the config data.');
+        foreach($configs as $key => $config) {
+            $response->appendContent(
+                "{$config->getPath()} [{$config->getScope()}] = {$config->getValue()}",
+                array('color' => array('white'))
+                );
         }
     }
     
     /**
-     * undocumented function
+     * Set the value of a config value that matches a path and scope.
      *
      * @return void
      * @author Alistair Stead
      **/
     public function set($path, $scope = null, $value)
     {
+        $this->_bootstrap();
+        
+        // get request/response object
+        $request = $this->_registry->getRequest();
+        $response = $this->_registry->getResponse();
+        
+        $response->appendContent(
+            'Magento Config updated to: $PATH [$SCOPE] = $VALUE',
+            array('color' => array('yellow'))
+            );
+            
+        $configCollection = $configs = Mage::getModel('core/config_data')->getCollection();
+            
+        $configCollection->addFieldToFilter('path', array("eq" => $path));
+        if(is_string($scope)) {
+            $configCollection->addFieldToFilter('scope', array("eq" => $scope));
+        }
+        $configCollection->load();
+            
+        foreach($configs as $key => $config) {
+            $config->setValue($value);
+            $config->save();
+            
+            $response->appendContent(
+                "{$config->getPath()} [{$config->getScope()}] = {$config->getValue()}",
+                array('color' => array('white'))
+                );
+        }
     }
     
     /**
-     * undocumented function
+     * Update a config value that matches a path and scope by using str_replace
      *
      * @return void
      * @author Alistair Stead
      **/
-    public function setIfMatch($path, $scope = null, $match, $value)
+    public function replace($match, $value, $path = null, $scope = null)
     {
+        $this->_bootstrap();
+        
+        // get request/response object
+        $request = $this->_registry->getRequest();
+        $response = $this->_registry->getResponse();
+        
+        $response->appendContent(
+            'Magento Config updated to: $PATH [$SCOPE] = $VALUE',
+            array('color' => array('yellow'))
+            );
+            
+        $configCollection = $configs = Mage::getModel('core/config_data')->getCollection();
+
+        if(is_string($path)) {
+            $configCollection->addFieldToFilter('path', array("eq" => $path));
+        }
+        if(is_string($scope)) {
+            $configCollection->addFieldToFilter('scope', array("eq" => $scope));
+        }
+        $configCollection->load();
+
+        foreach($configs as $key => $config) {
+            if(strstr($config->getvalue(), $match)) {
+                $config->setValue(str_replace($match, $value, $config->getvalue()));
+                $config->save();
+
+                $response->appendContent(
+                    "{$config->getPath()} [{$config->getScope()}] = {$config->getValue()}",
+                    array('color' => array('white'))
+                    );
+            }
+        }
     }
 }
