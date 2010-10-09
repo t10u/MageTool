@@ -81,7 +81,7 @@ class MageTool_Tool_MageApp_Provider_Core_Config extends MageTool_Tool_MageApp_P
             array('color' => array('yellow'))
             );
             
-        $configCollection = $configs = Mage::getModel('core/config_data')->getCollection();
+        $configCollection = Mage::getModel('core/config_data')->getCollection();
             
         $configCollection->addFieldToFilter('path', array("eq" => $path));
         if(is_string($scope)) {
@@ -89,7 +89,7 @@ class MageTool_Tool_MageApp_Provider_Core_Config extends MageTool_Tool_MageApp_P
         }
         $configCollection->load();
             
-        foreach($configs as $key => $config) {
+        foreach($configCollection as $key => $config) {
             $config->setValue($value);
             if ($this->_registry->getRequest()->isPretend()) {
                 $result = "Dry run";
