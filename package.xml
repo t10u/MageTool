@@ -26,9 +26,9 @@
     <notes>-</notes>
     <contents>
         <dir name="/">
+            <file name="LICENSE" role="doc"/>
+            <file name="README.markdown" role="doc"/>
             <dir name="MageTool">
-                <file name="LICENSE" role="doc"/>
-                <file name="README.markdown" role="doc"/>
                 <dir name="Tool">
                     <dir name="MageApp">
                         <file baseinstalldir="/" name="Exception.php" role="php">
@@ -93,6 +93,11 @@
             <pearinstaller>
                 <min>1.4.0</min>
             </pearinstaller>
+            <package>
+                <name>zf</name>
+                <channel>pear.zfcampus.org</channel>
+                <min>1.10.8</min>
+               </package>
         </required>
     </dependencies>
     <phprelease/>
