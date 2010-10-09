@@ -1,100 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.8.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-    http://pear.php.net/dtd/tasks-1.0.xsd
-    http://pear.php.net/dtd/package-2.0
-    http://pear.php.net/dtd/package-2.0.xsd">
- <name>MageTool</name>
- <channel>pear.magetool.co.uk</channel>
- <summary>Additional ZF tools specifically for use during Magento development.</summary>
- <description>
+<package xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" packagerversion="1.8.0" version="2.0" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
+    <name>MageTool</name>
+    <channel>pear.magetool.co.uk</channel>
+    <summary>Additional ZF tools specifically for use during Magento development.</summary>
+    <description>
    Additional ZF tools specifically for use during Magento development. Adding commands that will be useful during development with Magento. Command include: Clear cache, enable / disable cache and create admin user.
  </description>
- <lead>
-  <name>Alistair Stead</name>
-  <user>alistair.stead</user>
-  <email>alistair.stead@designdisclosure.com</email>
-  <active>yes</active>
- </lead>
- <date>2010-10-02</date>
- <time>16:00:00</time>
- <version>
-  <release>0.0.1</release>
-  <api>0.0.1</api>
- </version>
- <stability>
-  <release>beta</release>
-  <api>beta</api>
- </stability>
- <license uri="http://www.opensource.org/licenses/mit-license.php">MIT</license>
- <notes>-</notes>
- <contents>
-   <dir name="/">
-    <file name="LICENSE" role="doc" />
-    <file name="README.markdown" role="doc" />
-    <dir name="Tool">
-        <dir name="MageApp">
-            <file baseinstalldir="/" name="Exception.php" role="php">
-                <tasks:replace from="@package_version@" to="version" type="package-info" />
-            </file>
-            <dir name="Provider">
-                <file baseinstalldir="/" name="Abstract.php" role="php">
-                    <tasks:replace from="@package_version@" to="version" type="package-info" />
-                </file>
-                <file baseinstalldir="/" name="App.php" role="php">
-                    <tasks:replace from="@package_version@" to="version" type="package-info" />
-                </file>
-                <file baseinstalldir="/" name="Exception.php" role="php">
-                    <tasks:replace from="@package_version@" to="version" type="package-info" />
-                </file>
-                <file baseinstalldir="/" name="Manifest.php" role="php">
-                    <tasks:replace from="@package_version@" to="version" type="package-info" />
-                </file>
-                <dir name="Admin">
-                    <file baseinstalldir="/" name="User.php" role="php">
-                        <tasks:replace from="@package_version@" to="version" type="package-info" />
-                    </file>
-                </dir>
-                <dir name="Core">
-                    <file baseinstalldir="/" name="Cache.php" role="php">
-                        <tasks:replace from="@package_version@" to="version" type="package-info" />
-                    </file>
-                    <file baseinstalldir="/" name="Config.php" role="php">
-                        <tasks:replace from="@package_version@" to="version" type="package-info" />
-                    </file>
-                    <file baseinstalldir="/" name="Resource.php" role="php">
-                        <tasks:replace from="@package_version@" to="version" type="package-info" />
-                    </file>
+    <lead>
+        <name>Alistair Stead</name>
+        <user>alistair.stead</user>
+        <email>alistair.stead@designdisclosure.com</email>
+        <active>yes</active>
+    </lead>
+    <date>2010-10-02</date>
+    <time>16:00:00</time>
+    <version>
+        <release>0.0.1</release>
+        <api>0.0.1</api>
+    </version>
+    <stability>
+        <release>beta</release>
+        <api>beta</api>
+    </stability>
+    <license uri="http://www.opensource.org/licenses/mit-license.php">MIT</license>
+    <notes>-</notes>
+    <contents>
+        <dir name="/">
+            <dir name="MageTool">
+                <file name="LICENSE" role="doc"/>
+                <file name="README.markdown" role="doc"/>
+                <dir name="Tool">
+                    <dir name="MageApp">
+                        <file baseinstalldir="/" name="Exception.php" role="php">
+                            <tasks:replace from="@package_version@" to="version" type="package-info"/>
+                        </file>
+                        <dir name="Provider">
+                            <file baseinstalldir="/" name="Abstract.php" role="php">
+                                <tasks:replace from="@package_version@" to="version" type="package-info"/>
+                            </file>
+                            <file baseinstalldir="/" name="App.php" role="php">
+                                <tasks:replace from="@package_version@" to="version" type="package-info"/>
+                            </file>
+                            <file baseinstalldir="/" name="Exception.php" role="php">
+                                <tasks:replace from="@package_version@" to="version" type="package-info"/>
+                            </file>
+                            <file baseinstalldir="/" name="Manifest.php" role="php">
+                                <tasks:replace from="@package_version@" to="version" type="package-info"/>
+                            </file>
+                            <dir name="Admin">
+                                <file baseinstalldir="/" name="User.php" role="php">
+                                    <tasks:replace from="@package_version@" to="version" type="package-info"/>
+                                </file>
+                            </dir>
+                            <dir name="Core">
+                                <file baseinstalldir="/" name="Cache.php" role="php">
+                                    <tasks:replace from="@package_version@" to="version" type="package-info"/>
+                                </file>
+                                <file baseinstalldir="/" name="Config.php" role="php">
+                                    <tasks:replace from="@package_version@" to="version" type="package-info"/>
+                                </file>
+                                <file baseinstalldir="/" name="Resource.php" role="php">
+                                    <tasks:replace from="@package_version@" to="version" type="package-info"/>
+                                </file>
+                            </dir>
+                        </dir>
+                    </dir>
+                    <dir name="MageExtension">
+                        <file baseinstalldir="/" name="Exception.php" role="php">
+                            <tasks:replace from="@package_version@" to="version" type="package-info"/>
+                        </file>
+                        <dir name="Provider">
+                            <file baseinstalldir="/" name="Abstract.php" role="php">
+                                <tasks:replace from="@package_version@" to="version" type="package-info"/>
+                            </file>
+                            <file baseinstalldir="/" name="Extension.php" role="php">
+                                <tasks:replace from="@package_version@" to="version" type="package-info"/>
+                            </file>
+                            <file baseinstalldir="/" name="Manifest.php" role="php">
+                                <tasks:replace from="@package_version@" to="version" type="package-info"/>
+                            </file>
+                        </dir>
+                    </dir>
                 </dir>
             </dir>
         </dir>
-        <dir name="MageExtension">
-            <file baseinstalldir="/" name="Exception.php" role="php">
-                <tasks:replace from="@package_version@" to="version" type="package-info" />
-            </file>
-            <dir name="Provider">
-                <file baseinstalldir="/" name="Abstract.php" role="php">
-                    <tasks:replace from="@package_version@" to="version" type="package-info" />
-                </file>
-                <file baseinstalldir="/" name="Extension.php" role="php">
-                    <tasks:replace from="@package_version@" to="version" type="package-info" />
-                </file>
-                <file baseinstalldir="/" name="Manifest.php" role="php">
-                    <tasks:replace from="@package_version@" to="version" type="package-info" />
-                </file>
-            </dir>
-        </dir>
-    </dir>
-   </dir>
- </contents>
- <dependencies>
-  <required>
-   <php>
-    <min>5.2.6</min>
-   </php>
-   <pearinstaller>
-    <min>1.4.0</min>
-   </pearinstaller>
-  </required>
- </dependencies>
- <phprelease />
+    </contents>
+    <dependencies>
+        <required>
+            <php>
+                <min>5.2.6</min>
+            </php>
+            <pearinstaller>
+                <min>1.4.0</min>
+            </pearinstaller>
+        </required>
+    </dependencies>
+    <phprelease/>
 </package>
