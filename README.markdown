@@ -125,4 +125,15 @@ Response:
 
 MageTool provides commands for use during Magento development.
 
-	zf show mage-core-config --path web/unsecure/base_url	
+	zf show mage-core-config --path web/unsecure/base_url
+	
+## Showing your appreciation ##
+
+Of course, the best way to show your appreciation for the magetool itself remains
+contributing by forking this project.  If you'd like to show your appreciation in
+another way, however, consider Flattr'ing me:
+
+[![Flattr this][2]][1]
+
+[1]: http://flattr.com/thing/71078/MageTool
+[2]: http://api.flattr.com/button/button-compact-static-100x17.png	
