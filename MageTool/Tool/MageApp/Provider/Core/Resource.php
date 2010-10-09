@@ -31,8 +31,35 @@ class MageTool_Tool_MageApp_Provider_Core_Resource extends MageTool_Tool_MageApp
      * @return void
      * @author Alistair Stead
      **/
-    public function show()
+    public function show($code = null)
     {
+        $this->_bootstrap();
+        
+        // get request/response object
+        $request = $this->_registry->getRequest();
+        $response = $this->_registry->getResponse();
+        
+        $response->appendContent(
+            'Magento Core Resource: [VERSION] [DATA_VERSION]',
+            array('color' => array('yellow'))
+            );
+            
+        $resTable = Mage::getSingleton('core/resource')->getTableName('core/resource');
+        $read = Mage::getSingleton('core/resource')->getConnection('core_read');
+        
+        $select = $read->select()->from($resTable, array('code', 'version', 'data_version'));
+        if(is_string($code)) {
+            $select->where('code = ?', $code);
+        }
+        $resourceCollection = $read->fetchAll($select);
+        $read->closeConnection();
+
+        foreach($resourceCollection as $key => $resource) {
+            $response->appendContent(
+                "{$resource['code']} [{$resource['version']}] [{$resource['data_version']}]",
+                array('color' => array('white'))
+                );
+        }
     }
     
     /**
@@ -41,7 +68,18 @@ class MageTool_Tool_MageApp_Provider_Core_Resource extends MageTool_Tool_MageApp
      * @return void
      * @author Alistair Stead
      **/
-    public function delete($path)
+    public function delete($code)
     {
+        $this->_bootstrap();
+        
+        // get request/response object
+        $request = $this->_registry->getRequest();
+        $response = $this->_registry->getResponse();
+        
+        $resTable = Mage::getSingleton('core/resource')->getTableName('core/resource');
+        $write = Mage::getSingleton('core/resource')->getConnection('core_write');
+
+        $write->delete($resTable, "code = '{$code}'");
+        $write->closeConnection();
     }
 }
