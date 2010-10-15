@@ -47,7 +47,7 @@ class MageTool_Tool_MageApp_Provider_Core_Config extends MageTool_Tool_MageApp_P
         $configCollection = $configs = Mage::getModel('core/config_data')->getCollection();
 
         if(is_string($path)) {
-            $configCollection->addFieldToFilter('path', array("eq" => $path));
+            $configCollection->addFieldToFilter('path', array("like" => "%$path%"));
         }
         if(is_string($scope)) {
             $configCollection->addFieldToFilter('scope', array("eq" => $scope));
