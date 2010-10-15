@@ -20,16 +20,21 @@ class MageTool_Tool_MageApp_Provider_Core_Cache extends MageTool_Tool_MageApp_Pr
      *
      * @var array
      **/
-    protected $cacheTypes = array(
-            'config',
-            'layout',
-            'block_html',
-            'translate',
-            'collections',
-            'eav',
-            'config_api',
-            'full_page'
-        );
+    protected $cacheTypes = array();
+    
+    public function getCacheTypes()
+    {
+        if (!$this->cacheTypes) {
+            $cacheTypes = array();
+            foreach (Mage::app()->getCacheInstance()->getTypes() as $type) {
+                $cacheTypes[] = $type->getId();
+            }
+            
+            $this->cacheTypes = $cacheTypes;
+        }
+        
+        return $this->cacheTypes;
+    }
     
     /**
      * Define the name of the provider
@@ -76,7 +81,7 @@ class MageTool_Tool_MageApp_Provider_Core_Cache extends MageTool_Tool_MageApp_Pr
         $allTypes = Mage::app()->useCache();
 
         $updatedTypes = 0;
-        foreach ($this->cacheTypes as $code) {
+        foreach ($this->getCacheTypes() as $code) {
             if (empty($allTypes[$code])) {
                 $allTypes[$code] = 1;
                 $updatedTypes++;
@@ -108,7 +113,7 @@ class MageTool_Tool_MageApp_Provider_Core_Cache extends MageTool_Tool_MageApp_Pr
         $allTypes = Mage::app()->useCache();
 
         $updatedTypes = 0;
-        foreach ($this->cacheTypes as $code) {
+        foreach ($this->getCacheTypes() as $code) {
             if (!empty($allTypes[$code])) {
                 $allTypes[$code] = 0;
                 $updatedTypes++;
