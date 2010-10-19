@@ -127,12 +127,6 @@ MageTool provides commands for use during Magento development.
 
 	zf show mage-core-config --path web/unsecure/base_url
 	
-## Example Usage ##
-
-MageTool provides commands for use during Magento development.
-
-	zf show mage-core-config --path web/unsecure/base_url
-
 ## Additional configuration ##
 
 To create aliases to frequently used commands, add the .bash_aliases file to your home directory and add the following to the .bashrc file
