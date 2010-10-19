@@ -127,6 +127,28 @@ MageTool provides commands for use during Magento development.
 
 	zf show mage-core-config --path web/unsecure/base_url
 	
+## Example Usage ##
+
+MageTool provides commands for use during Magento development.
+
+	zf show mage-core-config --path web/unsecure/base_url
+
+## Additional configuration ##
+
+To create aliases to frequently used commands, add the .bash_aliases file to your home directory and add the following to the .bashrc file
+
+	if [ -f ~/.bash_aliases ]; then
+	  . ~/.bash_aliases
+	fi
+
+List of aliases:
+
+  - **mage_cc** - clear all caches
+  - **mage_config_get** - get config setting, e.g. *mage_config_get dev/debug/template_hints*
+  - **mage_config_set** - set config setting, e.g. *mage_config_set dev/debug/template_hints stores --value 1*
+  - **mage_hints_on** - turn on template hints
+  - **mage_hints_off** - turn off template hints
+	
 ## Showing your appreciation ##
 
 Of course, the best way to show your appreciation for the magetool itself remains
