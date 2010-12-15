@@ -1,0 +1,48 @@
+_magetool_comp() 
+{
+	local cur prev opts
+	COMPREPLY=()
+	cur="${COMP_WORDS[COMP_CWORD]}"
+	prev="${COMP_WORDS[COMP_CWORD-1]}"
+	
+	if [[  ${COMP_CWORD} -eq 1 ]]; then
+		opts="show create clear enable disable delete set replace version"
+		
+	elif [[ ${COMP_CWORD} -eq 2 ]]; then
+	
+		case "${prev}" in
+			show)
+				opts="mage-admin-user mage-core-resource mage-core-config"
+				;;
+			create)
+				opts="mage-admin-user mage-extension"
+				;;
+                        clear)
+                                opts="mage-core-cache"
+                                ;;
+			enable)
+				opts="mage-core-cache"
+				;;
+			disable)
+				opts="mage-core-cache"
+				;;
+			delete)
+				opts="mage-core-resource"
+				;;
+			set)
+				opts="mage-core-config"
+				;;
+			replace)
+				opts="mage-core-config"
+				;;
+			version)
+				opts="mage-app"
+				;;
+		esac
+	fi
+
+	COMPREPLY=($(compgen -W "${opts}" -- ${cur}))  
+	return 0
+}
+
+complete -F _magetool_comp zf
